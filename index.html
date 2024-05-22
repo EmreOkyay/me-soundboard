@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tit</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>Emre Voicenator 30000</h1>
+    <br>
+    <div class="button-container">
+	    <button class="button" onclick="playSound('Audio/AhsenEylülOkyay.m4a')">1</button>
+	    <button class="button" onclick="playSound('Audio/Ahsenim.m4a')">2</button>
+	    <button class="button" onclick="playSound('Audio/askımdanölüyorum.m4a')">3</button>
+	    <button class="button" onclick="playSound('Audio/Aşkısı.m4a')">4</button>
+	    <button class="button" onclick="playSound('Audio/Aşüfte.m4a')">5</button>
+	    <button class="button" onclick="playSound('Audio/Badumtsss.m4a')">6</button>
+	    <button class="button" onclick="playSound('Audio/CanımCanım.m4a')">7</button>
+	    <button class="button" onclick="playSound('Audio/Amsterdam.m4a')">8</button>
+	    <button class="button" onclick="playSound('Audio/Carslberg.m4a')">9</button>
+	    <button class="button" onclick="playSound('Audio/Ceku.m4a')">10</button>
+	    <button class="button" onclick="playSound('Audio/dudu.m4a')">11</button>
+	    <button class="button" onclick="playSound('Audio/gassa gassa cimbombom.m4a')">12</button>
+	    <button class="button" onclick="playSound('Audio/Hazırım.m4a')">13</button>
+	    <button class="button" onclick="playSound('Audio/Kestik.m4a')">14</button>
+	    <button class="button" onclick="playSound('Audio/Naber_Güzellik.m4a')">15</button>
+	    <button class="button" onclick="playSound('Audio/Öpşelimmi.m4a')">16</button>
+	    <button class="button" onclick="playSound('Audio/pipi.m4a')">17</button>
+	    <button class="button" onclick="playSound('Audio/Selam_Bebek.m4a')">18</button>
+	    <button class="button" onclick="playSound('Audio/Senden.m4a')">19</button>
+	    <button class="button" onclick="playSound('Audio/Serin.m4a')">20</button>
+	    <button class="button" onclick="playSound('Audio/zilli.m4a')">21</button>
+	    <button class="button" onclick="playSound('Audio/Kurban.m4a')">22</button>
+	    <button class="pause-button" onclick="pauseAllSounds()">PAUSE</button>
+	    <button class="pause-button" onclick="startBackgroundChange()">PARTY</button>
+	    <button class="pause-button" onclick="stopBackgroundChange()">STOP PARTY</button>
+	</div>
+    <script>
+        var audioInstances = [];
+        var intervalId;
+        var originalBackgroundImage = document.body.style.backgroundImage;
+
+        function playSound(soundFile) {
+            // Check if an audio instance with the same source already exists
+            let audio = audioInstances.find(a => a.src.includes(soundFile));
+            if (!audio) {
+                audio = new Audio(soundFile);
+                audioInstances.push(audio);
+            } else {
+                audio.currentTime = 0; // Reset if already exists
+            }
+            audio.play();
+        }
+
+        function pauseAllSounds() {
+            // Loop through all audio instances and pause them
+            audioInstances.forEach(audio => audio.pause());
+            stopBackgroundChange();
+        }
+
+        function startBackgroundChange() {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            playSound('Audio/jellyfish.mp3')
+            intervalId = setInterval(changeBackgroundColor, 500); // change every second
+        }
+
+        function stopBackgroundChange() {
+            clearInterval(intervalId);
+            document.body.style.backgroundColor = ''; // Reset background color
+            document.body.style.backgroundImage = originalBackgroundImage; 
+            pauseAllSounds();
+        }
+
+        function changeBackgroundColor() {
+            clearInterval(intervalId); // Clear any existing intervals
+            intervalId = setInterval(() => {
+                const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                document.body.style.backgroundColor = randomColor;
+                document.body.style.backgroundImage = 'none'; // Remove the background image
+            }, 500); // Change every second
+        }
+    </script>
+</body>
+</html>
